@@ -10,15 +10,15 @@ export default function Header() {
           <Image
             src="https://thumbs.dreamstime.com/b/print-204012264.jpg"
             alt="Instagram"
-            layout="fill"
+            fill
             className="object-contain"
           />
         </div>
         <div className="cursor-pointer h-24 w-10 relative flex lg:hidden">
           <Image
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/640px-Instagram_logo_2022.svg.png"
+            fill
             alt="Instagram"
-            layout="fill"
             className="object-contain"
           />
         </div>
