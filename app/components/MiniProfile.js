@@ -1,3 +1,4 @@
+import SignOut from "./SignOut";
 export default function MiniProfile() {
   return (
     <div>
@@ -11,7 +12,7 @@ export default function MiniProfile() {
           <h2 className="font-bold">NyolOsorio</h2>
           <h3 className="text-xs text-gray-400">Welcome to Instagram</h3>
         </div>
-        <button className="text-blue-400 text-sm font-bold">Sign Out</button>
+        <SignOut />
       </div>
     </div>
   );
