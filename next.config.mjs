@@ -18,6 +18,16 @@ const nextConfig = {
         hostname: "scontent.fosl1-1.fna.fbcdn.net",
         pathname: "/v/**",
       },
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
+        pathname: "/150?img=**",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/a/**",
+      },
     ],
   },
 

@@ -2,25 +2,36 @@ import MiniProfile from "./MiniProfile";
 import Posts from "./Posts";
 import Stories from "./Stories";
 import Suggestions from "./Suggestions";
+import { auth } from "../api/auth/[...auth]/route.js";
 
-export default function Feed() {
+export default async function Feed() {
+  const session = await auth();
+
   return (
     <div>
-      <main className="grid grid-cols-1 md:grid-cols-3 md:max-w-6xl mx-auto">
+      <main
+        className={`grid ${
+          session
+            ? "grid-cols-1 md:grid-cols-3 md:max-w-6xl mx-auto"
+            : "grid-cols-1 md:grid-cols-2 md:max-w-3xl mx-auto"
+        }`}
+      >
         <section className="md:col-span-2">
           {/* Stories */}
           <Stories />
           {/* Posts */}
           <Posts />
         </section>
-        <section className="hidden md:inline-grid md:col-span-1">
-          <div className="fixed w-[380px]">
-            {/* Mini Profile */}
-            <MiniProfile />
-            {/* Suggestions */}
-            <Suggestions />
-          </div>
-        </section>
+        {session ? (
+          <section className="hidden md:inline-grid md:col-span-1">
+            <div className="fixed w-[380px]">
+              {/* Mini Profile */}
+              <MiniProfile />
+              {/* Suggestions */}
+              <Suggestions />
+            </div>
+          </section>
+        ) : null}
       </main>
     </div>
   );

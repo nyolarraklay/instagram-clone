@@ -1,15 +1,19 @@
-import { signOut } from "../api/auth/[...auth]/route.js";
-export default function SignOut() {
+"use client";
+
+import { useRouter } from "next/navigation"; // if using Next.js, otherwise use a relevant hook or function
+
+function SignOutButton() {
+  const router = useRouter(); // Initialize the router
+
+  const handleSignOut = () => {
+    router.push("/signOut"); // Perform the redirect
+  };
+
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signOut({ redirectTo: "/signin" });
-      }}
-    >
-      <button type="submit" className="rounded-md p-2 bg-orange-500">
-        Sign-out
-      </button>
-    </form>
+    <div>
+      <button onClick={handleSignOut}>Sign Out</button>
+    </div>
   );
 }
+
+export default SignOutButton;

@@ -1,8 +1,13 @@
 import Image from "next/image";
 import { SearchIcon, PlusCircleIcon } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
+import { auth } from "../api/auth/[...auth]/route";
+import RedirectSignIn from "./RedirectSignIn";
+import UserImage from "./UserImage";
 
-export default function Header() {
+export default async function Header() {
+  const session = await auth();
+
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex items-center justify-between max-w-6xl mx-4 xl:mx-auto">
@@ -34,17 +39,13 @@ export default function Header() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <HomeIcon className="h-6 text-blue-500 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out hidden md:inline-flex" />
-          <PlusCircleIcon className="h-6 text-blue-500 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out" />
-
-          <Image
-            src="https://scontent.fosl1-1.fna.fbcdn.net/v/t39.30808-1/302219098_10159706965767798_5074832581185012703_n.jpg?stp=dst-jpg_s200x200&_nc_cat=102&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=93lnXJ-DetcQ7kNvgFRfIhc&_nc_ht=scontent.fosl1-1.fna&oh=00_AYBHQsyDgU3Yx5MFr7f0fs62r0V1OsAuL4kVT5-FKvCJbw&oe=66CE2AD5"
-            alt="Profile pic"
-            height={30}
-            width={30}
-            className="rounded-full cursor-pointer"
-          />
-          <p className="hidden lg:inline">Username</p>
+          <HomeIcon className="h-6 text-blue-500 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out " />
+          <PlusCircleIcon className="h-6 text-blue-500 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out hidden md:inline-flex" />
+          {session ? (
+            <UserImage image={session.user.image} />
+          ) : (
+            <RedirectSignIn />
+          )}
         </div>
       </div>
     </div>
