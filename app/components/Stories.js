@@ -5,7 +5,7 @@ import "minifaker/locales/en";
 import { useEffect, useState } from "react";
 import Story from "./Story";
 
-export default function Stories() {
+export default function Stories({ userImage, isLoggedIn }) {
   const [stories, setStories] = useState([]);
   useEffect(() => {
     const storyUsers = minifaker.array(20, (i) => ({
@@ -18,6 +18,10 @@ export default function Stories() {
 
   return (
     <div className="flex space-x-2 p-6 bg-white mt-8 border-gray-200 border overflow-x-scroll rounded-sm scrollbar-none">
+      {isLoggedIn ? (
+        <Story img={userImage} username={"your story"} isUser={true} />
+      ) : null}
+
       {stories.map((user) => (
         <Story key={user.id} username={user.username} img={user.img} />
       ))}

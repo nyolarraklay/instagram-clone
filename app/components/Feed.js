@@ -6,6 +6,8 @@ import { auth } from "../api/auth/[...auth]/route.js";
 
 export default async function Feed() {
   const session = await auth();
+  const userImage = session ? session.user.image : null;
+  const userName = session ? session.user.username : null;
 
   return (
     <div>
@@ -18,7 +20,10 @@ export default async function Feed() {
       >
         <section className="md:col-span-2">
           {/* Stories */}
-          <Stories />
+          <Stories
+            userImage={session ? userImage : null}
+            isLoggedIn={session ? true : false}
+          />
           {/* Posts */}
           <Posts />
         </section>
