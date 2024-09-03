@@ -1,14 +1,11 @@
 import Image from "next/image";
-import { SearchIcon, PlusCircleIcon } from "@heroicons/react/outline";
-import { HomeIcon } from "@heroicons/react/solid";
-import { auth } from "../api/auth/[...auth]/route";
+import { SearchIcon } from "@heroicons/react/outline";
 import RedirectSignIn from "./RedirectSignIn";
 import UserImage from "./UserImage";
 import PlusIconAddIcon from "./PlusIconAddIcon";
+import HomeIconButton from "./HomeIcon";
 
-export default async function Header() {
-  const session = await auth();
-
+export default function Header({ isUser, profilePic }) {
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex items-center justify-between max-w-6xl mx-4 xl:mx-auto">
@@ -40,10 +37,13 @@ export default async function Header() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <HomeIcon className="h-6 text-blue-500 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out " />
-          <PlusIconAddIcon />
-          {session ? (
-            <UserImage image={session.user.image} />
+          <HomeIconButton />
+
+          {isUser ? (
+            <>
+              <PlusIconAddIcon />
+              <UserImage image={profilePic} />{" "}
+            </>
           ) : (
             <RedirectSignIn />
           )}
