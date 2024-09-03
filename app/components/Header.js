@@ -4,6 +4,7 @@ import { HomeIcon } from "@heroicons/react/solid";
 import { auth } from "../api/auth/[...auth]/route";
 import RedirectSignIn from "./RedirectSignIn";
 import UserImage from "./UserImage";
+import PlusIconAddIcon from "./PlusIconAddIcon";
 
 export default async function Header() {
   const session = await auth();
@@ -40,7 +41,7 @@ export default async function Header() {
 
         <div className="flex items-center space-x-4">
           <HomeIcon className="h-6 text-blue-500 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out " />
-          <PlusCircleIcon className="h-6 text-blue-500 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out hidden md:inline-flex" />
+          <PlusIconAddIcon />
           {session ? (
             <UserImage image={session.user.image} />
           ) : (
