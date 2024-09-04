@@ -5,8 +5,30 @@ import {
   BookmarkIcon,
   EmojiHappyIcon,
 } from "@heroicons/react/outline";
+import { useState } from "react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "../../firebase";
 
-export default function Post({ username, userImage, img, caption, session }) {
+export default function Post({
+  username,
+  userImage,
+  img,
+  caption,
+  session,
+  id,
+}) {
+  const [comment, setComment] = useState("");
+  async function sendComment(e) {
+    e.preventDefault();
+    const commentToSend = comment;
+    setComment("");
+    await addDoc(collection(db, "posts", id, "comments"), {
+      comment: commentToSend,
+      username: username,
+      userImage: userImage,
+      timestamp: serverTimestamp(),
+    });
+  }
   return (
     <div className="bg-white my-7 border rounded-md">
       <div className="flex items-center p-5">
@@ -40,8 +62,17 @@ export default function Post({ username, userImage, img, caption, session }) {
             type="text"
             placeholder="Add a comment..."
             className="flex-1 border-none w-full focus:ring-0 p-4"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
           />
-          <button className="font-bold text-blue-500">Post</button>
+          <button
+            type="submit"
+            className="font-bold text-blue-500"
+            disabled={!comment.trim()}
+            onClick={sendComment}
+          >
+            Post
+          </button>
         </form>
       )}
     </div>
