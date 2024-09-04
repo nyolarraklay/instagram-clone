@@ -20,7 +20,7 @@ export default function Feed({ profilePic, isUser, username }) {
             isLoggedIn={isUser ? true : false}
           />
           {/* Posts */}
-          <Posts />
+          <Posts session={isUser} />
         </section>
         {isUser ? (
           <section className="hidden md:inline-grid md:col-span-1">
