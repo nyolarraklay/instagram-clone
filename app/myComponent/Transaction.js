@@ -7,8 +7,8 @@ import Receipts from "./Receipts";
 import { useRecoilState } from "recoil";
 import totalState from "../atom/totalAtom";
 import expensesState from "../atom/expensesAtom";
-import TotalExpenses from "./totalExpenses";
 import TotalBudget from "./TotalBudget";
+import TotalExpenses from "./TotalExpenses";
 
 export default function Transaction() {
   const [total] = useRecoilState(totalState);
@@ -28,11 +28,6 @@ export default function Transaction() {
       transaction: transactionToSend,
       amount: amountToSend,
       date: dateToSend,
-      timestamp: serverTimestamp(),
-    });
-
-    await addDoc(collection(db, "total"), {
-      total: total,
       timestamp: serverTimestamp(),
     });
   }
