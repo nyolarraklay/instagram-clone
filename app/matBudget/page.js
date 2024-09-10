@@ -4,7 +4,7 @@ import ClientRootLayout from "../myComponent/ClientRootLayout";
 
 export default async function matBudget() {
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen ">
       {/* <Header /> */}
       <ClientRootLayout>
         <Transaction />

@@ -8,7 +8,7 @@ import { useRecoilState } from "recoil";
 import totalState from "../atom/totalAtom";
 import expensesState from "../atom/expensesAtom";
 import TotalBudget from "./TotalBudget";
-import TotalExpenses from "./TotalExpense";
+import TotalExpenses from "./TotalExpenses";
 
 export default function Transaction() {
   const [total] = useRecoilState(totalState);
