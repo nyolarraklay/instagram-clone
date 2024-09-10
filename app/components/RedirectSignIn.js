@@ -6,7 +6,7 @@ export default function RedirectSignIn() {
   const router = useRouter(); // Initialize the router
 
   const handleRedirectSignIn = () => {
-    router.push("/signIn"); // Perform the redirect
+    router.push("/logIn"); // Perform the redirect
   };
 
   return (

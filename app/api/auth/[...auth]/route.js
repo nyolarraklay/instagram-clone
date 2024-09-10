@@ -5,7 +5,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   secret: process.env.SECRET,
   pages: {
-    signIn: "/signIn",
+    signIn: "/logIn",
     signOut: "/signOut",
   },
   callbacks: {
