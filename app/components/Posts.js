@@ -5,7 +5,7 @@ import { orderBy, query, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useEffect, useState } from "react";
 
-export default function Posts({ session }) {
+export default function Posts({ session, uid }) {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -28,6 +28,7 @@ export default function Posts({ session }) {
           img={post.data().image}
           caption={post.data().caption}
           session={session}
+          uid={uid}
         />
       ))}
     </div>

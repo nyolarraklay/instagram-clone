@@ -3,7 +3,7 @@ import Posts from "./Posts";
 import Stories from "./Stories";
 import Suggestions from "./Suggestions";
 
-export default function Feed({ profilePic, isUser, username }) {
+export default function Feed({ profilePic, isUser, username, uID }) {
   return (
     <div>
       <main
@@ -20,7 +20,7 @@ export default function Feed({ profilePic, isUser, username }) {
             isLoggedIn={isUser ? true : false}
           />
           {/* Posts */}
-          <Posts session={isUser} />
+          <Posts session={isUser} uid={uID} />
         </section>
         {isUser ? (
           <section className="hidden md:inline-grid md:col-span-1">

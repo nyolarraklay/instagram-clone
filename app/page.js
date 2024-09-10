@@ -8,6 +8,7 @@ export default async function Home() {
   const session = await auth();
   const username = session?.user?.username;
   const profilePic = session?.user?.image;
+  const uid = session?.user?.uid;
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* <Header /> */}
@@ -22,6 +23,7 @@ export default async function Home() {
           username={username}
           profilePic={profilePic}
           isUser={session && true}
+          uID={uid}
         />
       </ClientRootLayout>
     </div>
