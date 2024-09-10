@@ -1,7 +1,7 @@
 import Header from "../components/Header.js";
 import SignIn from "../components/SignIn.js";
 
-export default function Signin() {
+export default function SignIn() {
   return (
     <>
       <Header />
