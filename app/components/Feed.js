@@ -9,7 +9,6 @@ import userState from "../atom/userAtom";
 
 export default function Feed() {
   const [currentUser, setCurrentUser] = useRecoilState(userState);
-  console.log(currentUser);
 
   return (
     <div>
@@ -27,7 +26,10 @@ export default function Feed() {
             isLoggedIn={currentUser ? true : false}
           />
           {/* Posts */}
-          <Posts session={currentUser} uid={currentUser?.uid} />
+          <Posts
+            session={currentUser}
+            uId={currentUser ? currentUser.uid : null}
+          />
         </section>
         {currentUser ? (
           <section className="hidden md:inline-grid md:col-span-1">

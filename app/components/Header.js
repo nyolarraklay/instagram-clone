@@ -37,7 +37,7 @@ export default function Header() {
   }, [db]);
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
-      <div className="flex items-center justify-between max-w-6xl mx-4 xl:mx-auto">
+      <div className="flex items-center justify-between max-w-6xl mx-2 xl:mx-auto">
         <div className="cursor-pointer h-24 w-24 relative hidden lg:inline-grid">
           <Image
             src="https://thumbs.dreamstime.com/b/print-204012264.jpg"
@@ -61,11 +61,11 @@ export default function Header() {
           <input
             type="text"
             placeholder="Search"
-            className="bg-gray-100 border-gray-500 text-sm focus:ring-black focus:border-black rounded-full pl-10"
+            className="bg-gray-100 border-gray-500 text-sm focus:ring-black focus:border-black rounded-full pl-10 w-52 lg:w-96"
           />
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2">
           <HomeIconButton />
 
           {currentUser ? (

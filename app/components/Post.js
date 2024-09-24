@@ -28,6 +28,7 @@ export default function Post({
   caption,
   session,
   id,
+  uid,
 }) {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
@@ -53,8 +54,10 @@ export default function Post({
     );
   }, [db]);
   useEffect(() => {
-    setHasLiked(likes.findIndex((like) => like.id === id) !== -1);
+    setHasLiked(likes.findIndex((like) => like.id === uid) !== -1);
   }, [likes]);
+
+  console.log(hasLiked);
 
   async function likePost() {
     if (hasLiked) {
