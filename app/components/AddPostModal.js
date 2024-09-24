@@ -6,6 +6,7 @@ import Modal from "react-modal";
 import { CameraIcon } from "@heroicons/react/outline";
 import { useRef } from "react";
 import { useState } from "react";
+import userState from "../atom/userAtom";
 import {
   addDoc,
   collection,
@@ -16,7 +17,8 @@ import {
 import { db, storage } from "../../firebase";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 
-export default function AddPostModal({ username, profilePic }) {
+export default function AddPostModal() {
+  const [currentUser, setCurrentUser] = useRecoilState(userState);
   const [open, setOpen] = useRecoilState(modalState);
   const filePickerRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -37,8 +39,8 @@ export default function AddPostModal({ username, profilePic }) {
     setLoading(true);
     const docRef = await addDoc(collection(db, "posts"), {
       caption: captionRef.current.value,
-      username: username,
-      profilePic: profilePic,
+      username: currentUser.username,
+      profilePic: currentUser.userImg,
       timestamp: serverTimestamp(),
     });
     const imageRef = ref(storage, `posts/${docRef.id}/image`);

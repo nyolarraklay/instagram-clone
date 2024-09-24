@@ -1,11 +1,40 @@
+"use client";
+
 import Image from "next/image";
 import { SearchIcon } from "@heroicons/react/outline";
 import RedirectSignIn from "./RedirectSignIn";
 import UserImage from "./UserImage";
 import PlusIconAddIcon from "./PlusIconAddIcon";
 import HomeIconButton from "./HomeIcon";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import userState from "../atom/userAtom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { db } from "../../firebase";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
-export default function Header({ isUser, profilePic }) {
+export default function Header() {
+  const [currentUser, setCurrentUser] = useRecoilState(userState);
+  const auth = getAuth();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.auth.currentUser.providerData[0].uid;
+
+        const unsubscribe = onSnapshot(
+          query(collection(db, "users"), where("uid", "==", uid)),
+          (snapshot) => {
+            const userData = snapshot.docs.map((doc) => doc.data());
+            setCurrentUser(userData[0] || null);
+          }
+        );
+        return unsubscribe;
+      } else {
+        setCurrentUser(null);
+      }
+    });
+  }, [db]);
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex items-center justify-between max-w-6xl mx-4 xl:mx-auto">
@@ -39,10 +68,10 @@ export default function Header({ isUser, profilePic }) {
         <div className="flex items-center space-x-4">
           <HomeIconButton />
 
-          {isUser ? (
+          {currentUser ? (
             <>
               <PlusIconAddIcon />
-              <UserImage image={profilePic} />{" "}
+              <UserImage image={currentUser.userImg} />{" "}
             </>
           ) : (
             <RedirectSignIn />

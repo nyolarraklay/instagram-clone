@@ -9,8 +9,10 @@ import totalState from "../atom/totalAtom";
 import expensesState from "../atom/expensesAtom";
 import TotalBudget from "./TotalBudget";
 import TotalExpenses from "./TotalExpenses";
+import sideBarState from "../atom/sideBarAtom";
 
 export default function Transaction() {
+  const [sideBar, setSideBar] = useRecoilState(sideBarState);
   const [total] = useRecoilState(totalState);
   const [expenses] = useRecoilState(expensesState);
   const [transaction, setTransaction] = useState("");
@@ -33,13 +35,18 @@ export default function Transaction() {
   }
 
   return (
-    <>
-      <div className="max-w-6xl  mx-4 xl:mx-auto shadow-sm border-b bg-white sticky top-0 z-50 flex flex-col p-4">
-        <h1 className="bg-blue-300 font-bold p-2 w-32 rounded-md border-red-200 border shadow-md text-center self-center ">
-          Food Budget
-        </h1>
-        <div className="flex p-4">
-          <div className="flex flex-1 p-4">
+    <div
+      className={`flex flex-col mt-10 transition-transform duration-300 ease-out ${
+        sideBar ? "translate-x-50" : "-translate-x-[45%] lg:-translate-x-[35%] "
+      }`}
+    >
+      <div>
+        <div className="max-w-6xl mx-4 xl:mx-auto flex flex-col p-4">
+          <div className="flex space-y-4 shadow-sm border-b bg-white sticky top-0 z-50 ">
+            <TotalBudget total={total} />
+            <TotalExpenses expenses={expenses} />
+          </div>
+          <div className="flex p-2">
             <form className="flex flex-col w-full text-center">
               <input
                 type="text"
@@ -56,7 +63,7 @@ export default function Transaction() {
                 onChange={(e) => setAmount(e.target.value)}
               />
               <input
-                type="text"
+                type="date"
                 placeholder="Enter Date"
                 className="border-none flex-1 focus:ring-0 focus:outline-none"
                 value={date}
@@ -71,15 +78,11 @@ export default function Transaction() {
               </button>
             </form>
           </div>
-          <div className="flex flex-col space-y-4">
-            <TotalBudget total={total} />
-            <TotalExpenses expenses={expenses} />
-          </div>
         </div>
       </div>
-      <div className="max-w-6xl  mx-4 xl:mx-auto mt-5">
+      <div className="flex max-w-full justify-center my-5">
         <Receipts />
       </div>
-    </>
+    </div>
   );
 }
